@@ -13,5 +13,6 @@ public interface INemsService {
 
     void updateNemsRecord(NemsRecord nemsRecord);
 
+
     void updateNemsRecordInBulk(ArrayList<NemsRecord> nemsRecordList);
 }

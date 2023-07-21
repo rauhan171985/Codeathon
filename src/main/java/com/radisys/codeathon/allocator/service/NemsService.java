@@ -35,6 +35,7 @@ public class NemsService implements INemsService {
         nemsRepository.updateNemsRecord(nemsRecord);
     }
 
+
     @Override
     public void updateNemsRecordInBulk(ArrayList<NemsRecord> nemsRecordList) {
         nemsRepository.updateNemsRecordInBulk(nemsRecordList);

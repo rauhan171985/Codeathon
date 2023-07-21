@@ -1,9 +1,12 @@
 package com.radisys.codeathon.allocator.controller;
 
 import com.radisys.codeathon.allocator.model.NemsRecord;
+import com.radisys.codeathon.allocator.observable.PCLObservable;
+import com.radisys.codeathon.allocator.observer.PCLObserver;
 import com.radisys.codeathon.allocator.service.INemsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,10 @@ public class NemsRecordController {
     final Logger logger = LoggerFactory.getLogger(NemsRecordController.class);
     private final String hashReference= "NEMS_NEG_MAPPING";
     INemsService nemsService;
+    @Autowired
+    PCLObservable pclObservable;
+    @Autowired
+    PCLObserver pclObserver;
     public static String status = null;
 
     public NemsRecordController(INemsService nemsService) {
@@ -47,7 +54,15 @@ public class NemsRecordController {
     @PutMapping({"/{negId}"})
     public ResponseEntity<String> updateNemsRecord(@PathVariable String negId,
                                                    @RequestBody NemsRecord nemsRecord) {
-        nemsService.updateNemsRecord(nemsRecord);
+
+        pclObservable.addPropertyChangeListener(pclObserver);
+        NemsRecord observedNemsRecord = pclObservable.observeNemsRecord(nemsRecord);
+        if (observedNemsRecord != null) {
+            nemsService.updateNemsRecord(observedNemsRecord);
+        } else {
+            nemsService.updateNemsRecord(nemsRecord);
+        }
+
         return new ResponseEntity<>(nemsService.getNemsRecord(negId), HttpStatus.OK);
     }
 
