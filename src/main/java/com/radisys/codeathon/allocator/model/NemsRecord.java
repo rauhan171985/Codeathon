@@ -21,6 +21,27 @@ public class NemsRecord implements Serializable {
     }
 
     private String desiredAllocation;
+
+    public void setNegId(String negId) {
+        this.negId = negId;
+    }
+
+    public void setDesiredAllocation(String desiredAllocation) {
+        this.desiredAllocation = desiredAllocation;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setCurrentAllocation(String currentAllocation) {
+        this.currentAllocation = currentAllocation;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     private String location;
 
     public String getDesiredAllocation() {

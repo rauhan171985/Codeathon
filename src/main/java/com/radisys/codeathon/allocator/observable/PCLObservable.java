@@ -36,9 +36,13 @@ public class PCLObservable {
         logger.info("NEMS status of associated NEG {} is {} ", this.nemsRecord.getNegId(), this.nemsRecord.getStatus());
         if ("DOWN".equals(this.nemsRecord.getStatus()) && "NEMS-BERLIN".equals(this.nemsRecord.getCurrentAllocation())) {
             this.nemsRecord.setCurrentAllocation("NEMS-FRANKFRUIT");
+            this.nemsRecord.setLocation("FRANKFRUIT");
+            return this.nemsRecord;
+        } else if ("UP".equals(this.nemsRecord.getStatus()) && "NEMS-BERLIN".equals(this.nemsRecord.getDesiredAllocation())) {
+            this.nemsRecord.setCurrentAllocation("NEMS-BERLIN");
+            this.nemsRecord.setLocation("BERLIN");
             return this.nemsRecord;
         }
-        logger.info("NEMS status of associated NEG {} is {} ", this.nemsRecord.getNegId(), this.nemsRecord.getStatus());
         return null;
     }
 }
