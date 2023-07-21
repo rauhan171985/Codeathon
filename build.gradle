@@ -9,7 +9,6 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.radisys.codeathon'
 version = '0.0.1-SNAPSHOT'
 
-
 repositories {
 	mavenCentral()
 }
