@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/nems")
@@ -72,8 +73,15 @@ public class NemsRecordController {
     //The function receives a GET request, processes it, and gives back a NemsRecord as a response.
     @GetMapping({"/{negId}"})
     public ResponseEntity<String> getNemsRecord(@PathVariable String negId) {
-        logger.info("Inside getNemsRecord..");
+        logger.info("Fetching Records for hashKey {}", negId);
         return new ResponseEntity<>(nemsService.getNemsRecord(negId), HttpStatus.OK);
+    }
+
+    //The function receives a GET request, processes it, and gives back a NemsRecord as a response.
+    @GetMapping
+    public ResponseEntity<Map> getAllNemsRecord() {
+        logger.info("Fetching all Records..K, HK and HV..");
+        return new ResponseEntity<>(nemsService.getAllNemsRecord(), HttpStatus.OK);
     }
 
 }
