@@ -50,19 +50,15 @@ public class NemsRecordController {
         return new ResponseEntity<>(nemsRecordList, HttpStatus.OK);
     }
 
-    //The function receives a PUT request, updates the NemsRecord
+    // The function receives a PUT request, updates the NemsRecord based on Status
+    // Status represents health of the particular NEMS
     @PutMapping({"/{negId}"})
     public ResponseEntity<String> updateNemsRecord(@PathVariable String negId,
                                                    @RequestBody NemsRecord nemsRecord) {
 
         pclObservable.addPropertyChangeListener(pclObserver);
         NemsRecord observedNemsRecord = pclObservable.observeNemsRecord(nemsRecord);
-        if (observedNemsRecord != null) {
-            nemsService.updateNemsRecord(observedNemsRecord);
-        } else {
-            nemsService.updateNemsRecord(nemsRecord);
-        }
-
+        nemsService.updateNemsRecord(observedNemsRecord);
         return new ResponseEntity<>(nemsService.getNemsRecord(negId), HttpStatus.OK);
     }
 

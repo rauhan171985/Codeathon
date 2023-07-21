@@ -1,6 +1,5 @@
 package com.radisys.codeathon.allocator.observable;
 
-import com.radisys.codeathon.allocator.controller.NemsRecordController;
 import com.radisys.codeathon.allocator.model.NemsRecord;
 import com.radisys.codeathon.allocator.service.NemsService;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ public class PCLObservable {
 
     final Logger logger = LoggerFactory.getLogger(PCLObservable.class);
     private PropertyChangeSupport support;
+    private static final String DOWN = "DOWN";
     private NemsRecord nemsRecord;
     NemsService nemsService;
 
@@ -34,15 +34,35 @@ public class PCLObservable {
         support.firePropertyChange("nemsRecord", this.nemsRecord, nemsRecord);
         this.nemsRecord = nemsRecord;
         logger.info("NEMS status of associated NEG {} is {} ", this.nemsRecord.getNegId(), this.nemsRecord.getStatus());
-        if ("DOWN".equals(this.nemsRecord.getStatus()) && "NEMS-BERLIN".equals(this.nemsRecord.getCurrentAllocation())) {
-            this.nemsRecord.setCurrentAllocation("NEMS-FRANKFRUIT");
-            this.nemsRecord.setLocation("FRANKFRUIT");
-            return this.nemsRecord;
-        } else if ("UP".equals(this.nemsRecord.getStatus()) && "NEMS-BERLIN".equals(this.nemsRecord.getDesiredAllocation())) {
-            this.nemsRecord.setCurrentAllocation("NEMS-BERLIN");
-            this.nemsRecord.setLocation("BERLIN");
-            return this.nemsRecord;
+
+        if (DOWN.equals(nemsRecord.getStatus())) {
+            return checkStatusDown(this.nemsRecord);
+        } else {
+            return checkStatusUp(this.nemsRecord);
         }
-        return null;
+    }
+
+    private NemsRecord checkStatusUp(NemsRecord nemsRecord) {
+
+        if ("NEMS-BERLIN".equals(nemsRecord.getDesiredAllocation())) {
+            nemsRecord.setCurrentAllocation("NEMS-BERLIN");
+            nemsRecord.setLocation("BERLIN");
+        } else {
+            nemsRecord.setCurrentAllocation("NEMS-FRANKFRUIT");
+            nemsRecord.setLocation("FRANKFRUIT");
+        }
+        return nemsRecord;
+    }
+
+    private NemsRecord checkStatusDown(NemsRecord nemsRecord) {
+
+        if ("NEMS-BERLIN".equals(nemsRecord.getCurrentAllocation())) {
+            nemsRecord.setCurrentAllocation("NEMS-FRANKFRUIT");
+            nemsRecord.setLocation("FRANKFRUIT");
+        } else {
+            nemsRecord.setCurrentAllocation("NEMS-BERLIN");
+            nemsRecord.setLocation("BERLIN");
+        }
+        return nemsRecord;
     }
 }
