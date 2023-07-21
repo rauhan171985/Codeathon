@@ -10,13 +10,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Repository
 public class NemsRepository implements INemsRepository {
 
     final Logger logger = LoggerFactory.getLogger(NemsRepository.class);
 
-    private final String hashKey = "NEMS_NEG_MAPPING";
+    private final String key = "NEMS_NEG_MAPPING";
     private HashOperations hashOperations;
 
     public NemsRepository(@Autowired RedisTemplate redisTemplate) {
@@ -24,22 +25,27 @@ public class NemsRepository implements INemsRepository {
     }
 
     @Override
-    public void saveNemsRecord(NemsRecord nemsRecord, String key) {
+    public Boolean saveNemsRecord(NemsRecord nemsRecord, String hashKey) {
         Gson gson = new Gson();
-        hashOperations.putIfAbsent(hashKey, nemsRecord.getNegId(), gson.toJson(nemsRecord));
-        logger.info(String.format("NEMS with NEG ID %s saved", nemsRecord.getNegId()));
+        return hashOperations.putIfAbsent(key, hashKey, gson.toJson(nemsRecord));
     }
 
     @Override
     public String getNemsRecord(String negId) {
         logger.info("[NemsRepository] Inside Nems REPO with negId as {} ", negId);
-        return (String) hashOperations.get(hashKey, negId);
+        return (String) hashOperations.get(key, negId);
+    }
+
+    @Override
+    public Map getAllNemsRecord() {
+        logger.info("[NemsRepository] Fetching all records with key {} ", key);
+        return hashOperations.entries(key);
     }
 
     @Override
     public void updateNemsRecord(NemsRecord nemsRecord) {
         Gson gson = new Gson();
-        hashOperations.put(hashKey, nemsRecord.getNegId(), gson.toJson(nemsRecord));
+        hashOperations.put(key, nemsRecord.getNegId(), gson.toJson(nemsRecord));
         logger.info(String.format("NEMS with NEG ID %s updated", nemsRecord.getNegId()));
     }
 
