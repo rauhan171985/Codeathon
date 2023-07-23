@@ -34,10 +34,9 @@ public class NemsRecordController {
     //The function receives a POST request, and create a List of NEMS Record with NEG ID as key
     @PostMapping
     public ResponseEntity<ArrayList<NemsRecord>> createNemsRecordInBulk(@RequestBody ArrayList<NemsRecord> nemsRecordList) {
-        nemsRecordList.stream().forEach(nemsRecord -> {
+        nemsRecordList.forEach(nemsRecord -> {
             nemsService.saveNemsRecord(nemsRecord, nemsRecord.getNegId());
         });
-
         return new ResponseEntity<>(nemsRecordList, HttpStatus.OK);
     }
 
