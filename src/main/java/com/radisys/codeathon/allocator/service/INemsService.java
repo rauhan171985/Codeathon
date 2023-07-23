@@ -15,5 +15,4 @@ public interface INemsService {
 
     Map getAllNemsRecord();
 
-    void updateNemsRecordInBulk(ArrayList<NemsRecord> nemsRecordList);
 }

@@ -33,29 +33,21 @@ public class NemsRecordController {
 
     //The function receives a POST request, and create a List of NEMS Record with NEG ID as key
     @PostMapping
-    public ResponseEntity<ArrayList<NemsRecord>> createNemsRecordInBulk(@RequestBody ArrayList<NemsRecord> nemsRecordList) {
+    public ResponseEntity<ArrayList<NemsRecord>> createNemsRecords(@RequestBody ArrayList<NemsRecord> nemsRecordList) {
         nemsRecordList.forEach(nemsRecord -> {
             nemsService.saveNemsRecord(nemsRecord, nemsRecord.getNegId());
         });
         return new ResponseEntity<>(nemsRecordList, HttpStatus.OK);
     }
 
-    // The function receives a PUT request, updates the NemsRecord based on Status.
-    // Status represents health of the particular NEMS
-    @PutMapping({"/{negId}"})
-    public ResponseEntity<String> updateNemsRecord(@PathVariable String negId,
-                                                   @RequestBody NemsRecord nemsRecord) {
-
-        pclObservable.addPropertyChangeListener(pclObserver);
-        NemsRecord observedNemsRecord = pclObservable.observeNemsRecord(nemsRecord);
-        nemsService.updateNemsRecord(observedNemsRecord);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     //The function receives a PUT request in bulk, updates the NemsRecord
-    @PutMapping({"/updateNemsRecordInBulk"})
-    public ResponseEntity<ArrayList<NemsRecord>> updateNemsRecordInBulk(@RequestBody ArrayList<NemsRecord> nemsRecordList) {
-        nemsService.updateNemsRecordInBulk(nemsRecordList);
+    @PutMapping
+    public ResponseEntity<ArrayList<NemsRecord>> updateNemsRecords(@RequestBody ArrayList<NemsRecord> nemsRecordList) {
+        nemsRecordList.forEach(nemsRecord -> {
+            pclObservable.addPropertyChangeListener(pclObserver);
+            NemsRecord observedNemsRecord = pclObservable.observeNemsRecord(nemsRecord);
+            nemsService.updateNemsRecord(observedNemsRecord);
+        });
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

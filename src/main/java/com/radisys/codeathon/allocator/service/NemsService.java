@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Service
@@ -39,11 +38,5 @@ public class NemsService implements INemsService {
     @Override
     public Map getAllNemsRecord() {
         return nemsRepository.getAllNemsRecord();
-    }
-
-
-    @Override
-    public void updateNemsRecordInBulk(ArrayList<NemsRecord> nemsRecordList) {
-        nemsRepository.updateNemsRecordInBulk(nemsRecordList);
     }
 }

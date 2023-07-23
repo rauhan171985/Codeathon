@@ -12,6 +12,8 @@ import java.beans.PropertyChangeSupport;
 @Component
 public class PCLObservable {
 
+    public static final String NEMS602 = "nemo-adapter.ems602.dtblrrsys.com";
+    public static final String NEMS1602 = "nemo-adapter.ems1602.dtblrrsys.com";
     final Logger logger = LoggerFactory.getLogger(PCLObservable.class);
     private PropertyChangeSupport support;
     private static final String DOWN = "DOWN";
@@ -44,11 +46,11 @@ public class PCLObservable {
 
     private NemsRecord checkStatusUp(NemsRecord nemsRecord) {
 
-        if ("NEMS-BERLIN".equals(nemsRecord.getDesiredAllocation())) {
-            nemsRecord.setCurrentAllocation("NEMS-BERLIN");
+        if (NEMS602.equals(nemsRecord.getDesiredAllocation())) {
+            nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
         } else {
-            nemsRecord.setCurrentAllocation("NEMS-FRANKFRUIT");
+            nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
         }
         return nemsRecord;
@@ -56,11 +58,11 @@ public class PCLObservable {
 
     private NemsRecord checkStatusDown(NemsRecord nemsRecord) {
 
-        if ("NEMS-BERLIN".equals(nemsRecord.getCurrentAllocation())) {
-            nemsRecord.setCurrentAllocation("NEMS-FRANKFRUIT");
+        if (NEMS602.equals(nemsRecord.getCurrentAllocation())) {
+            nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
         } else {
-            nemsRecord.setCurrentAllocation("NEMS-BERLIN");
+            nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
         }
         return nemsRecord;

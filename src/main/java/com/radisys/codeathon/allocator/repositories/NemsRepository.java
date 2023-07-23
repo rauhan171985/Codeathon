@@ -9,7 +9,6 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Repository
@@ -49,12 +48,4 @@ public class NemsRepository implements INemsRepository {
         logger.info(String.format("NEMS with NEG ID %s updated", nemsRecord.getNegId()));
     }
 
-    @Override
-    public void updateNemsRecordInBulk(ArrayList<NemsRecord> nemsRecordList) {
-        Gson gson = new Gson();
-        nemsRecordList.stream().forEach(nemsRecord -> {
-            updateNemsRecord(nemsRecord);
-            logger.info(String.format("NEMS with NEG ID %s updated", nemsRecord.getNegId()));
-        });
-    }
 }
