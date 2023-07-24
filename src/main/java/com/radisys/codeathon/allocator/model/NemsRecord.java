@@ -15,6 +15,15 @@ public class NemsRecord implements Serializable {
     private static final long serialVersionUID = -7817224776021728682L;
 
     private String negId;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getKeyCloakIngAddress() {
+        return keyCloakIngAddress;
+    }
+
     private String location;
     private String desiredAllocation;
     private String currentAllocation;
