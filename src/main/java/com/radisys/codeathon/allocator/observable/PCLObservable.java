@@ -14,6 +14,8 @@ public class PCLObservable {
 
     public static final String NEMS602 = "nemo-adapter.ems602.dtblrrsys.com";
     public static final String NEMS1602 = "nemo-adapter.ems1602.dtblrrsys.com";
+    public static final String IPADDRESS_602 = "172.27.65.105";
+    public static final String IPADDRESS_1602 = "172.27.68.73";
     final Logger logger = LoggerFactory.getLogger(PCLObservable.class);
     private PropertyChangeSupport support;
     private static final String DOWN = "DOWN";
@@ -49,9 +51,11 @@ public class PCLObservable {
         if (NEMS602.equals(nemsRecord.getDesiredAllocation())) {
             nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
+            nemsRecord.setIpAddress(IPADDRESS_602);
         } else {
             nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
+            nemsRecord.setIpAddress(IPADDRESS_1602);
         }
         return nemsRecord;
     }
@@ -61,9 +65,11 @@ public class PCLObservable {
         if (NEMS602.equals(nemsRecord.getCurrentAllocation())) {
             nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
+            nemsRecord.setIpAddress(IPADDRESS_1602);
         } else {
             nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
+            nemsRecord.setIpAddress(IPADDRESS_602);
         }
         return nemsRecord;
     }
