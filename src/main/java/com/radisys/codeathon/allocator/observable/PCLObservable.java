@@ -63,13 +63,13 @@ public class PCLObservable {
     private NemsRecord checkStatusDown(NemsRecord nemsRecord) {
 
         if (NEMS602.equals(nemsRecord.getCurrentAllocation())) {
-            nemsRecord.setCurrentAllocation(NEMS602);
+            nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
-            nemsRecord.setKeyCloakIngAddress(KEYCLOAK602);
+            nemsRecord.setKeyCloakIngAddress(KEYCLOAK1602);
         } else {
             nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
-            nemsRecord.setKeyCloakIngAddress(KEYCLOAK1602);
+            nemsRecord.setKeyCloakIngAddress(KEYCLOAK602);
         }
         return nemsRecord;
     }
