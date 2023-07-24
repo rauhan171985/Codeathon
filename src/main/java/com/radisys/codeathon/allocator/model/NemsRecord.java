@@ -19,7 +19,12 @@ public class NemsRecord implements Serializable {
     private String desiredAllocation;
     private String currentAllocation;
     private String status;
-    private String address;
+
+    public void setKeyCloakIngAddress(String keyCloakIngAddress) {
+        this.keyCloakIngAddress = keyCloakIngAddress;
+    }
+
+    private String keyCloakIngAddress;
 
     public String getNegId() {
         return negId;
@@ -45,8 +50,5 @@ public class NemsRecord implements Serializable {
         return status;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
 }
