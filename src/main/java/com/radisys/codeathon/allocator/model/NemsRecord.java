@@ -19,7 +19,7 @@ public class NemsRecord implements Serializable {
     private String desiredAllocation;
     private String currentAllocation;
     private String status;
-    private String IpAddress;
+    private String address;
 
     public String getNegId() {
         return negId;
@@ -45,8 +45,8 @@ public class NemsRecord implements Serializable {
         return status;
     }
 
-    public void setIpAddress(String ipAddress) {
-        IpAddress = ipAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

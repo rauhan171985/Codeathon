@@ -51,11 +51,11 @@ public class PCLObservable {
         if (NEMS602.equals(nemsRecord.getDesiredAllocation())) {
             nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
-            nemsRecord.setIpAddress(IPADDRESS_602);
+            nemsRecord.setAddress(IPADDRESS_602);
         } else {
             nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
-            nemsRecord.setIpAddress(IPADDRESS_1602);
+            nemsRecord.setAddress(IPADDRESS_1602);
         }
         return nemsRecord;
     }
@@ -65,11 +65,11 @@ public class PCLObservable {
         if (NEMS602.equals(nemsRecord.getCurrentAllocation())) {
             nemsRecord.setCurrentAllocation(NEMS1602);
             nemsRecord.setLocation("FRANKFRUIT");
-            nemsRecord.setIpAddress(IPADDRESS_1602);
+            nemsRecord.setAddress(IPADDRESS_1602);
         } else {
             nemsRecord.setCurrentAllocation(NEMS602);
             nemsRecord.setLocation("BERLIN");
-            nemsRecord.setIpAddress(IPADDRESS_602);
+            nemsRecord.setAddress(IPADDRESS_602);
         }
         return nemsRecord;
     }
